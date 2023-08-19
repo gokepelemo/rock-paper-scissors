@@ -72,6 +72,7 @@ const renderScores = () => {
 };
 const handleClick = (e) => {
   if (countdownRolling == 1) return;
+  resetTokens();
   switch (e.target.id) {
     case "1":
       countdown(3);
