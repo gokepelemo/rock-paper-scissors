@@ -122,7 +122,7 @@ const init = () => {
 init();
 
 /*----- event listeners -----*/
-countdownAudio.addEventListener("playing", (event) => {
+countdownAudio.addEventListener("playing", () => {
   countdownRolling = 1;
 });
 mainContainer.addEventListener("click", handleClick);
