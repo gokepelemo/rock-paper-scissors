@@ -34,6 +34,7 @@ class GameScene {
 /*----- functions -----*/
 // controller for when a player selects their token
 const playTurn = (pToken) => {
+  resetTokens();
   let cToken = gamePlay.computerTurn();
   gamePlay.computerToken.src = gamePlay.token[cToken].piece;
   gamePlay.playerToken.src = gamePlay.token[pToken].piece;
@@ -71,7 +72,6 @@ const renderScores = () => {
 };
 const handleClick = (e) => {
   if (countdownRolling == 1) return;
-  resetTokens();
   switch (e.target.id) {
     case "1":
       countdown(3);
