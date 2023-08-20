@@ -21,7 +21,7 @@ class GameScene {
   constructor() {
     this.playerToken = document.querySelector("#p-result");
     this.computerToken = document.querySelector("#c-result");
-    this.computerTurn = function () {
+    this.computerTurn = function() {
       return Math.ceil(Math.random() * 3);
     };
     this.token = {
@@ -34,7 +34,6 @@ class GameScene {
 /*----- functions -----*/
 // controller for when a player selects their token
 const playTurn = (pToken) => {
-  resetTokens();
   let cToken = gamePlay.computerTurn();
   gamePlay.computerToken.src = gamePlay.token[cToken].piece;
   gamePlay.playerToken.src = gamePlay.token[pToken].piece;
@@ -42,12 +41,12 @@ const playTurn = (pToken) => {
   if (pToken === cToken) {
     gameScores.tie++;
     renderScores();
-  // condition: when the computer wins
+    // condition: when the computer wins
   } else if (pToken === gamePlay.token[cToken].beats) {
     gameScores.computer++;
     renderScores();
     gamePlay.computerToken.style.border = "var(--winner)";
-  // condition: when the player wins
+    // condition: when the player wins
   } else if (cToken === gamePlay.token[pToken].beats) {
     gameScores.player++;
     renderScores();
@@ -55,9 +54,10 @@ const playTurn = (pToken) => {
   }
 };
 const resetTokens = () => {
+  countdownAudio.pause();
   countdownAudio.currentTime = 0;
-  gamePlay.computerToken.src = "";
-  gamePlay.playerToken.src = "";
+  gamePlay.playerToken.removeAttribute("src");
+  gamePlay.computerToken.removeAttribute("src");
   gamePlay.computerToken.style.border = "none";
   gamePlay.playerToken.style.border = "none";
   gameScores.player = 0;
@@ -71,37 +71,37 @@ const renderScores = () => {
   tieScore.innerText = gameScores.tie;
 };
 const handleClick = (e) => {
-  if (countdownRolling == 1) return;
+  if (countdownRolling === 1) return;
   resetTokens();
   switch (e.target.id) {
     case "1":
       countdown(3);
-      setTimeout(function () {
+      setTimeout(function() {
         playTurn(1);
       }, 4000);
       break;
     case "2":
       countdown(3);
-      setTimeout(function () {
+      setTimeout(function() {
         playTurn(2);
       }, 4000);
       break;
     case "3":
       countdown(3);
-      setTimeout(function () {
+      setTimeout(function() {
         playTurn(3);
       }, 4000);
       break;
   }
 };
 const countdown = (seconds) => {
-  setTimeout(function () {
+  setTimeout(function() {
     if (countdownRolling === 0) countdownAudio.play();
     countdownDisplay.style.visibility = "visible";
     countdownDisplay.innerText = seconds;
     if (seconds === 0) {
       countdownDisplay.style.visibility = "hidden";
-      setTimeout(function () {
+      setTimeout(function() {
         countdownAudio.pause();
         countdownRolling = 0;
         countdownAudio.currentTime = 0;
