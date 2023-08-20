@@ -17,6 +17,7 @@ const tieScore = document.querySelector("#t-score");
 const computerScore = document.querySelector("#c-score");
 const mainContainer = document.querySelector("main");
 /*----- classes -----*/
+// class to create an instance of a game
 class GameScene {
   constructor() {
     this.playerToken = document.querySelector("#p-result");
@@ -54,6 +55,7 @@ const playTurn = (pToken) => {
   }
 };
 const resetTokens = () => {
+  // reset the game scene for a new game
   countdownAudio.pause();
   countdownAudio.currentTime = 0;
   gamePlay.playerToken.removeAttribute("src");
@@ -66,13 +68,16 @@ const resetTokens = () => {
   renderScores();
 };
 const renderScores = () => {
+  // update new scores after game play
   playerScore.innerText = gameScores.player;
   computerScore.innerText = gameScores.computer;
   tieScore.innerText = gameScores.tie;
 };
 const handleClick = (e) => {
+  // prevent user error by exiting the function if a play is in progress
   if (countdownRolling === 1) return;
   resetTokens();
+  // use the element id to determine the token that the user played
   switch (e.target.id) {
     case "1":
       countdown(3);
@@ -94,6 +99,8 @@ const handleClick = (e) => {
       break;
   }
 };
+
+// render the countdown before each play
 const countdown = (seconds) => {
   setTimeout(function() {
     if (countdownRolling === 0) countdownAudio.play();
@@ -111,11 +118,15 @@ const countdown = (seconds) => {
     countdown(--seconds);
   }, 1000);
 };
+
+// create a new game scene
 const render = () => {
   gamePlay = new GameScene();
   resetTokens();
   renderScores();
 };
+
+// initialize the app
 const init = () => {
   render();
 };
